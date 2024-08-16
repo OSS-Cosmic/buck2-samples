@@ -1,0 +1,45 @@
+load("@prelude//toolchains:demo.bzl", "system_demo_toolchains")
+
+load("@prelude//toolchains:genrule.bzl", "system_genrule_toolchain")
+load("@prelude//toolchains:python.bzl", "system_python_bootstrap_toolchain", "system_python_toolchain")
+load("@prelude//toolchains/msvc:tools.bzl", "find_msvc_tools")
+load("@prelude//toolchains/apple:tools.bzl", "find_apple_tools")
+load("@prelude//toolchains/cxx/clang:tools.bzl", "path_clang_tools")
+load("@prelude//toolchains:cxx.bzl", "cxx_tools_info_toolchain")
+load("@prelude//toolchains:remote_test_execution.bzl", "remote_test_execution_toolchain")
+
+
+path_clang_tools(
+    name = "clang_tools",
+    visibility = ["PUBLIC"],
+)
+
+system_python_toolchain(
+    name = "python",
+    visibility = ["PUBLIC"],
+)
+
+cxx_tools_info_toolchain(
+    name = "cxx",
+    cxx_tools_info = ":clang_tools",
+    visibility = ["PUBLIC"],
+#    target_sdk_version = "14.5"
+
+)
+
+find_apple_tools(
+    name = "apple",
+    architecture = "amr64",
+    sdk_name= "macosx",
+    visibility = ["PUBLIC"],
+)
+
+system_genrule_toolchain(
+    name = "genrule",
+    visibility = ["PUBLIC"],
+)
+
+system_python_bootstrap_toolchain(
+    name = "python_bootstrap",
+    visibility = ["PUBLIC"],
+)

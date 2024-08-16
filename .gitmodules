@@ -1,0 +1,3 @@
+[submodule "hello_world/prelude"]
+	path = hello_world/prelude
+	url = git@github.com:OSS-Cosmic/buck2-prelude.git

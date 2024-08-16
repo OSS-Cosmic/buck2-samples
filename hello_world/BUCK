@@ -1,0 +1,24 @@
+# cxx_binary(
+#     name = "main",
+#     srcs = ["main.cpp"],
+#     link_style = "static",
+#     deps = [":print"],
+# )
+
+apple_binary(
+    name = "main-apple",
+    srcs = ["main.mm"],
+    link_style = "static",
+    frameworks =  ["$SDKROOT/System/Library/Foundation.framework"],
+    compatible_with = ["config//os:macos" ],
+    target_sdk_version = "14.5",
+    deps = [":print"],
+)
+
+apple_library(
+    name = "print",
+    srcs = ["library.cpp"],
+
+    exported_headers = glob(["**/*.hpp"]),
+    visibility = ["PUBLIC"],
+)
